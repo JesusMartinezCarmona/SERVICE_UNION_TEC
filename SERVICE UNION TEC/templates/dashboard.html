@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Servicio Social</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+        .header a { text-decoration: none; background: #dc3545; color: white; padding: 8px 12px; border-radius: 4px; }
+        .alert { padding: 10px; margin-bottom: 15px; border-radius: 4px; }
+        .alert-danger { background-color: #f8d7da; color: #721c24; }
+        .alert-success { background-color: #d4edda; color: #155724; }
+        .alert-warning { background-color: #fff3cd; color: #856404; }
+        .btn { background-color: #007bff; color: white; padding: 10px 15px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h3>Bienvenido, {{ username }}</h3>
+            <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        </div>
+        
+        <h2>Unificar Datos de Servicio Social</h2>
+        <p>Sube el archivo Excel (.xlsx) con los datos de los alumnos para sincronizarlos con el portal.</p>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('procesar_excel') }}" method="POST" enctype="multipart/form-data">
+            <input type="file" name="excel_file" accept=".xlsx" required>
+            <button type="submit" class="btn">Procesar Archivo</button>
+        </form>
+        
+    </div>
+</body>
+</html>

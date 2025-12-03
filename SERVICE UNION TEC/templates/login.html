@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Portal de Servicio Social</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: grid; place-items: center; min-height: 90vh; background-color: #f4f4f4; }
+        .login-box { background: #fff; border: 1px solid #ccc; padding: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; }
+        .form-group input { width: 300px; padding: 8px; box-sizing: border-box; }
+        .alert { padding: 10px; margin-bottom: 15px; border-radius: 4px; }
+        .alert-danger { background-color: #f8d7da; color: #721c24; }
+        .alert-success { background-color: #d4edda; color: #155724; }
+        .btn { background-color: #007bff; color: white; padding: 10px 15px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Iniciar Sesión (ITE)</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>
